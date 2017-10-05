@@ -3,17 +3,7 @@ import java.sql.*;
 public class Main {
 
     public static void main(String[] args) {
-
-        String[] myArray = new String[] {"fname", "sname"};
-        dbQuery(myArray, "SELECT * from customer");
-
-
-
-    }
-
-    public static void dbQuery(String[] fields, String myQuery){
-
-
+        String password = args[0];
         try {
             Class driver = Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -21,22 +11,17 @@ public class Main {
         }
         try {
             Connection connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost/bigBadBank", "root", "password");
+                    "jdbc:://localhost/demo", "root", password);
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(myQuery);
-
-
+            ResultSet resultSet = statement.executeQuery("SELECT name FROM persons;");
             while(resultSet.next()) {
-                for (int i=0; i<fields.length; i++){
-                    String fname = resultSet.getString(fields[i]);
-                    System.out.println(fname);
-                }
+                String name = resultSet.getString("name");
+                System.out.println(name);
 
             }
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 }
