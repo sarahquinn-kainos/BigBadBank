@@ -34,13 +34,31 @@ public class QueryMYSQL {
                 "=======================================\n" +
                 "  Please enter you account number:   ");
         String accountNum = scanner.nextLine();
+        System.out.println(accountNum);
+        if (accountNum .equals("0")){
+            System.out.println("    EXIT   ");
+            //Main.menu();
+        }
         String[] myArray = new String[]{"id", "funds"};
         ArrayList accountFunds = new ArrayList();
         accountFunds = dbQuery(myArray, "SELECT * FROM account where id=" + accountNum, true);
-        System.out.println("" +
-                "\n============= View Funds ==============\n" +
-                "Account_ID:         " + (accountFunds.get(0)) + "\n" +
-                "Available Funds:    " + (accountFunds.get(1)) + "\n" +
-                "=======================================\n");
+        int validResult = accountFunds.size();
+        if (validResult==2) {
+            System.out.println("" +
+                    "\n============= View Funds ==============\n" +
+                    "Account_ID:         " + (accountFunds.get(0)) + "\n" +
+                    "Available Funds:    " + (accountFunds.get(1)) + "\n" +
+                    "=======================================\n");
+        }
+        else{
+            System.out.println("\n" +
+                    "+============ERROR============+\n" +
+                    "| not a valid account ID, try |\n" +
+                    "| again or press 0 to exit to |\n" +
+                    "| the main menu.              |\n" +
+                    "+=============================+\n");
+            viewFunds();
+
+        }
     }
 }
