@@ -15,16 +15,20 @@ public class Main {
     public static void Menu(){
         boolean correctInput = false;
         String menuSelection = " ";
-        System.out.println("Please select from the following options:");
-        System.out.println("1. Open a new account");
-        System.out.println("2. Check Balance");
+        System.out.println("\n" +
+                "+======================== MAIN MENU ========================+\n" +
+                "| Please select from the following options:                 |\n" +
+                "| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |\n" +
+                "| (1) Open a new account                                    |\n" +
+                "| (2) Check Balance                                         |\n" +
+                "+===========================================================+\n" );
         while (!correctInput){
             Scanner scanner = new Scanner(System.in);
             menuSelection = scanner.nextLine();
             if (menuSelection.equals("1") || menuSelection.equals("2")){
                 correctInput = true;
             } else{
-                System.out.println("Please enter an acceptable input from the options in the menu");
+                System.out.println("\nPlease enter an acceptable input from the options in the menu\n");
             }
         }
         int menuSelectionInt = Integer.parseInt(menuSelection);
@@ -43,10 +47,10 @@ public class Main {
         int id, telephoneNo;
         double deposit = 0;
         Scanner scanner2 = new Scanner(System.in);
-        System.out.println("Do you already have an account with us?\n type y or n");
+        System.out.println("\nDo you already have an account with us? (y/n)");
         String response = scanner2.nextLine();
         if (response.toLowerCase().equals("y") || response.toLowerCase().equals("yes")){
-            System.out.println("Please enter your Customer Id");
+            System.out.println("\nPlease enter your Customer Id");
             scanner2 = new Scanner(System.in);
             try {
                 String[] columns = new String[]{"id"};
@@ -57,31 +61,36 @@ public class Main {
                 }*/
                 ArrayList<String> result = QueryMYSQL.dbQuery(columns, "SELECT id FROM customer where id = " + id, true);
                 if (result.size() < 1){
-                    System.out.println("This customer ID does not currently exist");
-                    newAccount();
+                    System.out.println("\n This customer ID does not currently exist\n Exiting to Main Menu ......\n");
+                    Menu();
                 }
                 boolean correctDeposit = false;
                 while (!correctDeposit) {
-                    System.out.println("Please enter the deposit amount");
+                    System.out.println("\nPlease enter the deposit amount");
                     scanner2 = new Scanner(System.in);
                     deposit = scanner2.nextInt();
                     if (deposit > 1000 || deposit < 0) {
-                        System.out.println("Please enter a deposit amount between 0 and 1000");
+                        System.out.println("\nPlease enter a deposit amount between 0 and 1000");
                     }else{
                         correctDeposit = true;
                     }
                 }
                 String query = "INSERT INTO account (funds, initialDeposit, customerID) VALUES(" + deposit + ", " + deposit + ", " + id + ");";
                 QueryMYSQL.dbUpdate(query);
+                System.out.println("\n ACCOUNT CREATED SUCCESSFULLY!\n");
+                Menu();
             }
             catch (InputMismatchException ex){
-                System.out.println("Please ensure that you enter a number for your id and deposit amount");
+                System.out.println("\nPlease ensure that you enter a number for your id and deposit amount\n" +
+                        "ACCOUNT NOT CREATED DUE TO INPUT ERROR - TRY AGAIN IF NEEDED");
+                Menu();
+
             }
 
         }else if (response.toLowerCase().equals("n") || response.toLowerCase().equals("no")){
 
         }else{
-            System.out.println("Incorrect selection please try again");
+            System.out.println("\nIncorrect selection please try again");
             newAccount();
         }
 
