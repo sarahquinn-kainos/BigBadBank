@@ -33,7 +33,7 @@ public class Main {
                 newAccount();
                 break;
             case 2:
-                //viewFunds();
+                QueryMYSQL.viewFunds();
                 break;
         }
     }
@@ -55,7 +55,7 @@ public class Main {
                     System.out.println("Please enter a 8 digit ID");
                     newAccount();
                 }*/
-                ArrayList<String> result = Query.dbQuery(columns, "SELECT id FROM customer where id = " + id, true);
+                ArrayList<String> result = QueryMYSQL.dbQuery(columns, "SELECT id FROM customer where id = " + id, true);
                 if (result.size() < 1){
                     System.out.println("This customer ID does not currently exist");
                     newAccount();
@@ -72,7 +72,7 @@ public class Main {
                     }
                 }
                 String query = "INSERT INTO account (funds, initialDeposit, customerID) VALUES(" + deposit + ", " + deposit + ", " + id + ");";
-                Query.dbUpdate(query);
+                QueryMYSQL.dbUpdate(query);
             }
             catch (InputMismatchException ex){
                 System.out.println("Please ensure that you enter a number for your id and deposit amount");
