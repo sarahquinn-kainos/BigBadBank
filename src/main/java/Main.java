@@ -21,11 +21,12 @@ public class Main {
                 "| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |\n" +
                 "| (1) Open a new account                                    |\n" +
                 "| (2) Check Balance                                         |\n" +
+                "| (0) EXIT                                                  |\n" +
                 "+===========================================================+\n" );
         while (!correctInput){
             Scanner scanner = new Scanner(System.in);
             menuSelection = scanner.nextLine();
-            if (menuSelection.equals("1") || menuSelection.equals("2")){
+            if (menuSelection.equals("1") || menuSelection.equals("2")|| menuSelection.equals("0")){
                 correctInput = true;
             } else{
                 System.out.println("\nPlease enter an acceptable input from the options in the menu\n");
@@ -39,6 +40,9 @@ public class Main {
             case 2:
                 QueryMYSQL.viewFunds();
                 break;
+            case 0:
+                System.out.println("\n Good Bye!\n");
+                System.exit(0);
         }
     }
 

@@ -27,13 +27,14 @@ CREATE TABLE account(
                 ON DELETE CASCADE
                 );
 
+ALTER TABLE customer AUTO_INCREMENT=10000000;
+ALTER TABLE account AUTO_INCREMENT=20000000;
 
+insert into customer (fname, sname, address, DOB, gender, phone, email) values ("Sarah", "Quinn", "102 Lisburn Road","1998-08-10","f","07547900697","sarahq@kainos.com");
+insert into account (funds, initialDeposit, customerID) values (100, 100, 10000000);
 
-insert into customer (fname, sname, address, DOB) values ("Sarah", "Quinn", "102 Lisburn Road","1998-08-10");
-insert into account (funds, initialDeposit, customerID) values (100, 100, 1);
-
-insert into customer (fname, sname, address, DOB) values ("John", "Smith", "arse send  of nowhere","1990-06-16");
-insert into account (funds, initialDeposit, customerID) values (150, 150, 2);
+insert into customer (fname, sname, address, DOB, gender, phone, email) values ("John", "Smith", "arse send  of nowhere","1990-06-16","m","07566485773","johns@gmail.com");
+insert into account (funds, initialDeposit, customerID) values (150, 150, 10000001);
 
 
 
