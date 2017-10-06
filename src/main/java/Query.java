@@ -30,23 +30,5 @@ public class Query {
         return fieldResults;
     }
 
-    public static int dbUpdate(String myQuery){
-        int result = 0;
-        try {
-            Class driver = Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            Connection connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost/bigBadBank", "root", "password");
-            Statement statement = connection.createStatement();
-            result= statement.executeUpdate(myQuery);
-            connection.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
 }

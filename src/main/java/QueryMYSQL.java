@@ -17,8 +17,7 @@ public class QueryMYSQL {
             ResultSet resultSet = statement.executeQuery(myQuery);
             while(resultSet.next() && resultReturn) {
                 for (int i=0; i<fields.length; i++){
-                    String temp= resultSet.getString(fields[i]);
-                    fieldResult.add(temp);
+                    fieldResult.add(resultSet.getString(fields[i]));
                 }
             }
             connection.close();
@@ -26,6 +25,26 @@ public class QueryMYSQL {
             e.printStackTrace();
         }
         return fieldResult;
+    }
+
+    public static int dbUpdate(String myQuery){
+        int result = 0;
+        try {
+            Class driver = Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost/bigBadBank", "root", "password");
+            Statement statement = connection.createStatement();
+            result= statement.executeUpdate(myQuery);
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public static void viewFunds() {
