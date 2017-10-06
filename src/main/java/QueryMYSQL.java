@@ -67,18 +67,26 @@ public class QueryMYSQL {
         } else if (accountNum.equals("0")) {
             Main.Menu();
         } else {
-            String[] myArray = new String[]{"id", "funds"};
+            String[] myArray = new String[]{"id", "funds","customerID"};
             ArrayList accountFunds = new ArrayList();
             accountFunds = dbQuery(myArray, "SELECT * FROM account where id=" + accountNum, true);
             int validResult = accountFunds.size();
-            if (validResult == 2) {
-                System.out.println("" +
-                        "\n============= View Funds ==============\n" +
-                        "Account_ID:         " + (accountFunds.get(0)) + "\n" +
-                        "Available Funds:    " + (accountFunds.get(1)) + "\n" +
-                        "=======================================\n" +
-                        "\n Returning to Main Menu .......\n");
-                Main.Menu();
+            if (validResult == 3) {
+                System.out.println(accountFunds.get(0));
+                String[] myNewArray = new String[]{"fname", "sname"};
+                ArrayList accountCustomer = new ArrayList();
+                accountCustomer = dbQuery(myNewArray, "SELECT * FROM customer where id=" + accountFunds.get(2), true);
+                int validResultTwo = accountCustomer.size();
+                if (validResultTwo == 2) {
+                    System.out.println("" +
+                            "\n============= View Funds ==============\n" +
+                            "Name:               " + (accountCustomer.get(0)) + " " + (accountCustomer.get(1)) + "\n" +
+                            "Account_ID:         " + (accountFunds.get(0)) + "\n" +
+                            "Available Funds:    " + (accountFunds.get(1)) + "\n" +
+                            "=======================================\n" +
+                            "\n Returning to Main Menu .......\n");
+                    Main.Menu();
+                }
 
             } else {
                 System.out.println("\n" +
